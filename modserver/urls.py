@@ -5,5 +5,5 @@ urlpatterns = [
     # url(r'^$', 'modserver.views.home', name='home'),
     # url(r'^blog/', include('blog.urls')),
 
-    url(r'^', include('snippets.urls')),
+    url(r'^', include('mods.urls')),
 ]
