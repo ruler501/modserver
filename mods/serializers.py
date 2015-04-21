@@ -1,12 +1,20 @@
 from rest_framework import serializers
 from mods.models import Mod
 from django.contrib.auth.models import User
+from modserver import settings
 
 class ModSerializer(serializers.ModelSerializer):
+    owner = serializers.ReadOnlyField(source='owner.username')
+    download = serializers.SerializerMethodField('get_download_url')
+    
+    def get_download_url(self, obj):
+            return self.context['request'].build_absolute_uri(obj.mod.url)
+
+    
     class Meta:
         model = Mod
-        fields = ('title', 'mod', 'version', 'owner')
-        read_only_fields = ('owner',)
+        fields = ('title', 'mod', 'version', 'download', 'owner')
+        extra_kwargs = {'mod': {'write_only': True}}
 
 
 class UserSerializer(serializers.HyperlinkedModelSerializer):
