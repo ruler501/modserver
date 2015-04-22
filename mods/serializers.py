@@ -13,7 +13,7 @@ class ModSerializer(serializers.ModelSerializer):
     
     class Meta:
         model = Mod
-        fields = ('title', 'mod', 'version', 'download', 'owner')
+        fields = ('title', 'mod', 'version', 'description', 'url', 'download', 'owner')
         extra_kwargs = {'mod': {'write_only': True}}
 
 
